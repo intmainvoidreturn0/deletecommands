@@ -1,19 +1,17 @@
 #include <concord/discord.h>
-#include <concord/log.h>
 
 static void on_ready(struct discord *client,
                      const struct discord_ready *event) {
-  struct discord_application_commands cmds;
+  struct discord_application_commands commands;
   discord_get_global_application_commands(
       client, event->application->id,
       &(struct discord_ret_application_commands){
-          .sync = &cmds,
+          .sync = &commands,
       });
-  for (int i = 0; i != cmds.size; ++i) {
+  for (int i = 0; i != commands.size; ++i) {
     discord_delete_global_application_command(client, event->application->id,
-                                              cmds.array[i].id, 0);
+                                              commands.array[i].id, 0);
   }
-  log_info("completed");
 }
 
 int main(void) {
