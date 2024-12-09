@@ -1,5 +1,7 @@
 #include <concord/discord.h>
 
+#define TOKEN ""
+
 static void on_ready(struct discord *client,
                      const struct discord_ready *event) {
   struct discord_application_commands commands;
@@ -15,7 +17,7 @@ static void on_ready(struct discord *client,
 }
 
 int main(void) {
-  struct discord *client = discord_config_init("config.json");
+  struct discord *client = discord_init(TOKEN);
   discord_set_on_ready(client, &on_ready);
   discord_run(client);
 }
